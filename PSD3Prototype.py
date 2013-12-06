@@ -3,9 +3,9 @@ import string
 ###############################################################################################################################
 ###############################################################################################################################
 ##
-## Best Times Program
+## PSD3 Sprint 1
 ##
-## Mario Moro Hernandez
+## Team S
 ##
 ## Lab Exam 2, 17 April 2012
 ##
@@ -17,32 +17,15 @@ courses = {}                # global dictionary to store the courses information
 quitProgram = False         # boolean variable to control the execution of the program.
 debug = 1                   # debug control. 1 sets the debug mode ON, 0 sets the debug mode OFF.
 
-## another(): auxiliary function to manage the retry situations within the different main functions.
-def another():
-    options = ('y','n')                             # valid user options.
-    userInput = ''
-    print 'Do you want to retry (Y/N)?',
-
-    while userInput not in options:                 # keeps on prompting user input until a valid input is entered.
-        userInput = string.lower(raw_input())
-        if userInput not in options:                # exception handler.
-            print 'Please type a valid option Y or N (no case-sensitive):',
-
-    return userInput                                #returns user input.
-
-
 ## processStudentsFile(fileIn): auxiliary function to process students record files.
 def processStudentsFile(fileIn):
-    print 'inside processStudentsFile'
     student = {}                                # local dictionary.
     fileIn.readline()
     while True:                                 # read data and place into the data structure routine.
-        print 'inside while'
         line = fileIn.readline()
         if line == '':                          # finish flag.
             break
         else:
-            print 'inside else'
             split = string.split(line[:-1],',') # data handling sequence.
             course = split[0]
             IDNumber = split[1]
@@ -193,11 +176,10 @@ def saveFile(fileType, dataStructure):
 ## printResults(records): make use of the functions defined earlier to get an output of the
 ##                        results in the required the format.
 def printResults(records):
-    timeList = sortByTime(records)
-    male,female = extractGender(timeList)
-    printByGender(female)
-    printByGender(male)
-	
+    for ID in records:
+        print records[ID]
+        
+    
 
 ###############################################################################################################################
 ###############################################################################################################################
@@ -229,27 +211,35 @@ def menu():
             print 'Please type a valid option (L/S/P/C/Q; no case-sensitive):',
 
     if userInput == 'l':                    # this bit of code fires the right function according to the user's choice.
-		print "Please enter which time of file you are loading, 0 for student records, 1 for courses"
-		fileType = input()
+        print "Please enter which time of file you are loading, 0 for student records, 1 for courses"
+        fileType = input()
         #records = loadFile(0)
         #courses = loadFile(1)
-		if fileType == 0:
-			records = loadFile(0)
-		else
-			courses = loadFile(1)
+        if fileType == 0:
+            records = loadFile(0)
+        else:
+            courses = loadFile(1)
     elif userInput == 's':
-		print "Please enter which time of file you want to save, 0 for student records, 1 for courses"
-		fileType = input()
+        print "Please enter which time of file you want to save, 0 for student records, 1 for courses"
+        fileType = input()
         #records = loadFile(0)
         #courses = loadFile(1)
-		if fileType == 0:
-			saveFile(0, records)
-		else
-			saveFile(1, courses)
+        if fileType == 0:
+            saveFile(0, records)
+        else:
+            saveFile(1, courses)
         #saveFile(0,records)
         #saveFile(1,courses)
     elif userInput == 'p':
-        printResults(records)
+        print "Please enter which type of file you want to print, 0 for student records, 1 for courses"
+        fileType = input()
+        #records = loadFile(0)
+        #courses = loadFile(1)
+        if fileType == 0:
+            printResults(records)
+        else:
+            printResults(courses)
+        #printResults(records)
     elif userInput == 'q':
         quitProgram = True
 
