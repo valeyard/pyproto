@@ -152,6 +152,17 @@ def loadFile(fileType):
         print fileName,'not found'                  # message to the user.
     return                                          # exits gently
 
+## another(): auxiliary function to manage the retry situations within the different main functions.
+def another():
+    options = ('y','n')                             # valid user options.
+    userInput = ''
+    print 'Do you want to retry (Y/N)?',
+    while userInput not in options:                 # keeps on prompting user input until a valid input is entered.
+        userInput = string.lower(raw_input())
+        if userInput not in options:                # exception handler.
+            print 'Please type a valid option Y or N (no case-sensitive):',
+    return userInput                                #returns user input.
+
 ## saveFile(fileType, dataStructure): this function places the data stored in memory into a text file stored on disk.
 def saveFile(fileType, dataStructure):
     nameError = True                                # exception flag.
